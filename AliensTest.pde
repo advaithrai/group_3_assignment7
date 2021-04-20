@@ -1,6 +1,6 @@
 Alien enemy;
 Bullet b;
-
+/*
 void setup() {
   size(500,500);
   imageMode(CENTER);
@@ -24,4 +24,4 @@ void draw() {
   if (b.y <= 0){
     b.y = 500;
   }
-}
+} */

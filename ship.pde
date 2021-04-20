@@ -3,7 +3,8 @@ class Ship {
   PImage shipSprite = loadImage("Sprites/ship.png");
   int x;
   int y;
-
+  int lives = 3;
+  
   
   Ship(int x, int y) {
     this.x = x;
@@ -14,28 +15,33 @@ class Ship {
     image(shipSprite, x, y);
   }
   
-  void keyPressed() {
-    if (key == CODED) {
-      if (keyCode == UP) {
-        this.y -= 4;
-        println("up");
-        
-      }
-      if (keyCode == DOWN) {
-        this.y += 4;
-        println("down");
-      }
-      if (keyCode == RIGHT) {
-        this.x += 4;
-        println("right");
-      }
-      if (keyCode == LEFT) {
-        this.x -= 4;
-        println("left");
-      }
+  Boolean isAlive() {
+    if (this.lives >= 0) {
+      return false;
     }
-  
+    else {
+      return true;
+    }
   }
   
+  float checkDist(Bullet b) {
+    
+    float dist = sqrt(sq(this.x - b.x) + sq(this.y - b.y));
+    
+    return dist;
+    
+  }
+  
+   void checkHit(Bullet b){
+     
+     if (isAlive()){
+      if (checkDist(b) <= 25){
+        b.alive = false;
+        this.lives -= 1;
+      }
+     }
+   }
 
-}
+  
+
+  }
