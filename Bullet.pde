@@ -2,6 +2,7 @@ class Bullet {
   
   float x, y;
   boolean alive = true;
+  PImage bulletSprite = loadImage("Sprites/bullet.png");
   
   Bullet(float _x, float _y){
     x = _x;
@@ -17,8 +18,7 @@ class Bullet {
   
   void display(){
     if (alive){
-      fill(0);
-      ellipse(x,y,10,10);
+      image(bulletSprite, x, y);
     }
   }
 }
