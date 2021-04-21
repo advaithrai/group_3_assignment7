@@ -4,6 +4,9 @@ class Alien {
   int health = 1;
   float x, y, s;
   boolean alive = true;
+  int timer = 0;
+  int timerValue = 3000;
+  
   
   Alien(float _x, float _y) {
     x = _x;
@@ -48,4 +51,5 @@ class Alien {
       }
      }
    }
+
 }

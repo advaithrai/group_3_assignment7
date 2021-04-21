@@ -1,35 +1,56 @@
 int score = 0;
 int speed = 20;
 int level = 1;
-
+int timer = 0;
+int spawnTime = 6000;
 PImage bg;
 
 Ship ship;
 Bullet[] bullets;
 
-Alien alien;
+Alien[] aliens;
+
 
 alienBullet[] ab;
 
 void setup () {
   frameRate(60);
   size(500,500);
+  imageMode(CENTER);
   bg = loadImage("Images/space.jpg");
   
   bullets = new Bullet[0];
   ab = new alienBullet[0];
-  
+  aliens = new Alien[0];
+  aliens = (Alien[])append(aliens, new Alien(100,-25));
   ship = new Ship(250,400);
-  alien = new Alien(0,0);
+ 
 }
 
 
 void draw() {
-  image(bg,0,0);
+  image(bg,250,250);
   textSize(14);
+  
   text("Score: "+ score,400,20);
   text("Lives: " + ship.lives, 400,40);
   text("Level " + level, 10,20);
+  
+  
+  if ((millis() - timer) >= spawnTime){
+    aliens = (Alien[])append(aliens, new Alien(100,-25));
+    timer = millis();
+  }
+  
+
+    
+  for (Alien alien : aliens) {
+    alien.display();
+    alien.move();
+  }
+
+  
+
   
   for (Bullet bullet : bullets) {
     bullet.display();
@@ -76,8 +97,8 @@ void keyPressed() {
 
 void mouseClicked() {
   if (ship.isAlive()) {
-   bullets = (Bullet[])append(bullets, new Bullet(ship.x + 10,ship.y -15));
-   bullets = (Bullet[])append(bullets, new Bullet(ship.x + 30,ship.y -15));
+   bullets = (Bullet[])append(bullets, new Bullet(ship.x - 12.5 ,ship.y -15));
+   bullets = (Bullet[])append(bullets, new Bullet(ship.x + 12.5 ,ship.y -15));
 
   }
   
