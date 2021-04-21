@@ -73,6 +73,11 @@ void draw() {
  if(score >= 10){
     textSize(20);
     text("You Won! Press Enter to Play Again", 80,250);
+    
+    ship.alive = false;
+    for (Alien alien : aliens) {
+      alien.alive = false;
+    }
   }
   
   if (ship.isAlive()) {   
