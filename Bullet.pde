@@ -22,3 +22,10 @@ class Bullet {
     }
   }
 }
+
+class alienBullet extends Bullet {
+  
+  alienBullet(int x, int y) {
+    super(x,y);
+  }
+}

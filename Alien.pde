@@ -44,6 +44,7 @@ class Alien {
       if (checkDist(b) <= 25){
         b.alive = false;
         this.alive = false;
+        score += 1;
       }
      }
    }

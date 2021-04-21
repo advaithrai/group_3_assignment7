@@ -4,7 +4,7 @@ class Ship {
   int x;
   int y;
   int lives = 3;
-  
+  Boolean alive = true;
   
   Ship(int x, int y) {
     this.x = x;
@@ -14,17 +14,8 @@ class Ship {
   void display() {
     image(shipSprite, x, y);
   }
-  
-  Boolean isAlive() {
-    if (this.lives >= 0) {
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
-  
-  float checkDist(Bullet b) {
+
+  float checkDist(Alien b) {
     
     float dist = sqrt(sq(this.x - b.x) + sq(this.y - b.y));
     
@@ -32,16 +23,47 @@ class Ship {
     
   }
   
-   void checkHit(Bullet b){
+    float checkDistBullet(alienBullet b) {
+    
+    float dist = sqrt(sq(this.x - b.x) + sq(this.y - b.y));
+    
+    return dist;
+    
+  }
+
+  
+  Boolean isAlive() {
+     if (this.lives <= 0) {
+          this.alive = false;
+//          println("dead");
+          return false;
+        }
+    else {
+ //     println("alive");
+      return true;
+    }
+  }
+  
+   void checkHit(Alien b){
      
-     if (isAlive()){
+     if (this.alive){
       if (checkDist(b) <= 25){
         b.alive = false;
         this.lives -= 1;
+
       }
      }
    }
+   void checkHitBullet(alienBullet b){
+     
+     if (this.alive){
+      if (checkDistBullet(b) <= 25){
+        b.alive = false;
+        this.lives -= 1;
 
+      }
+     }
+   }
   
 
   }
