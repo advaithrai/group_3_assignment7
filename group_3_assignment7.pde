@@ -69,16 +69,22 @@ void draw() {
     ship.checkHitBullet(a);
   }  
  */
+ 
+ if(score >= 10){
+    textSize(20);
+    text("You Won! Press Enter to Play Again", 80,250);
+  }
+  
   if (ship.isAlive()) {   
     ship.display(); 
         
   }
     
   else {
-    textSize(30);
-    text("Game Over", 180,250);
+    textSize(20);
+    text("Game Over. Press Enter to Play Again", 80,250);
   }
-
+  
   
 }
 
@@ -96,8 +102,16 @@ void keyPressed() {
       if (key == 'a' && ship.x >= 5) {
         ship.x -= speed;
       }
+      
      }
-
+     if (key == ENTER){
+        bg = loadImage("Images/space.jpg");
+        bullets = new Bullet[0];
+        aliens = new Alien[0];
+        aliens = (Alien[])append(aliens, new Alien(100,-25));
+        ship = new Ship(250,400);
+        score = 0;
+      }
   }
 
 void mouseClicked() {
