@@ -46,9 +46,11 @@ class Ship {
   
    void checkHit(Alien b){
      
-     if (this.alive){
+     
+     if (this.alive && !b.hit){
       if (checkDist(b) <= 25){
         b.alive = false;
+        b.hit = true;
         this.lives -= 1;
 
       }

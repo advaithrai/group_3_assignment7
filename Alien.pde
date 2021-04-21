@@ -4,6 +4,7 @@ class Alien {
   int health = 1;
   float x, y, s;
   boolean alive = true;
+  boolean hit = false;
   int timer = 0;
   int timerValue = 3000;
   
@@ -41,14 +42,20 @@ class Alien {
   }
   
   
-   void checkHit(Bullet b){
+   int checkHit(Bullet b){
      
-     if (alive){
+     if (this.alive && b.alive){
       if (checkDist(b) <= 25){
         b.alive = false;
         this.alive = false;
-        score += 1;
+        return (1);
+      } else {
+        return(0);
       }
+      
+     }
+     else {
+       return(0);
      }
    }
 

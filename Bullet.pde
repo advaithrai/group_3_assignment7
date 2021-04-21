@@ -12,7 +12,13 @@ class Bullet {
   
   void move(){
     if (alive){
-      y -= 5;
+      
+      if (x <= 0){
+        this.alive = false;
+      } else {
+        y -= 5;
+      }
+      
     }
   }
   

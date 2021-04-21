@@ -45,25 +45,30 @@ void draw() {
 
     
   for (Alien alien : aliens) {
+    ship.checkHit(alien);
     alien.display();
     alien.move();
   }
 
   
-
+  
   
   for (Bullet bullet : bullets) {
+    for (Alien alien : aliens){
+      score += alien.checkHit(bullet);
+    }
+    
     bullet.display();
     bullet.move();    
 
   }
-  
+/*  
   for (alienBullet a : ab) {
     a.display();
     a.move();
     ship.checkHitBullet(a);
   }  
- 
+ */
   if (ship.isAlive()) {   
     ship.display(); 
         
