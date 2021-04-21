@@ -25,7 +25,16 @@ class Bullet {
 
 class alienBullet extends Bullet {
   
+  Boolean hit = false;
+  
   alienBullet(int x, int y) {
     super(x,y);
   }
+  
+    void move(){
+    if (alive){
+      y += 5;
+    }
+  }
+
 }

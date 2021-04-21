@@ -5,13 +5,18 @@ int level = 1;
 Ship ship;
 Bullet[] bullets;
 
+alienBullet[] ab;
+
 void setup () {
   frameRate(60);
   size(500,500);
+  
   bullets = new Bullet[0];
+  ab = new alienBullet[0];
   
   ship = new Ship(250,400);
 }
+
 
 void draw() {
   background(0,0,0);
@@ -26,10 +31,17 @@ void draw() {
 
   }
   
+  for (alienBullet a : ab) {
+    a.display();
+    a.move();
+    ship.checkHitBullet(a);
+  }  
+ 
   if (ship.isAlive()) {   
-        ship.display();
+    ship.display(); 
         
-    }
+  }
+    
   else {
     textSize(30);
     text("Game Over", 180,250);
@@ -40,13 +52,13 @@ void draw() {
 
 void keyPressed() {
      if (ship.isAlive()) {
-      if (key == 'w') {
+      if (key == 'w' && ship.y >= 0) {
         ship.y -= speed;        
       }
-      if (key == 's') {
+      if (key == 's' && ship.y <= 450) {
         ship.y += speed;
       }
-      if (key == 'd' && ship.x <= 470) {
+      if (key == 'd' && ship.x <= 450) {
         ship.x += speed;
       }
       if (key == 'a' && ship.x >= 5) {
@@ -55,7 +67,6 @@ void keyPressed() {
      }
 
   }
-
 
 void mouseClicked() {
   if (ship.isAlive()) {
