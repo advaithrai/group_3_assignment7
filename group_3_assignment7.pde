@@ -2,24 +2,30 @@ int score = 0;
 int speed = 20;
 int level = 1;
 
+PImage bg;
+
 Ship ship;
 Bullet[] bullets;
+
+Alien alien;
 
 alienBullet[] ab;
 
 void setup () {
   frameRate(60);
   size(500,500);
+  bg = loadImage("Images/space.jpg");
   
   bullets = new Bullet[0];
   ab = new alienBullet[0];
   
   ship = new Ship(250,400);
+  alien = new Alien(0,0);
 }
 
 
 void draw() {
-  background(0,0,0);
+  image(bg,0,0);
   textSize(14);
   text("Score: "+ score,400,20);
   text("Lives: " + ship.lives, 400,40);

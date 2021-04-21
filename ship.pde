@@ -54,6 +54,7 @@ class Ship {
       }
      }
    }
+   
    void checkHitBullet(alienBullet b){
      
      if (this.alive){
