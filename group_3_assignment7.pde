@@ -1,3 +1,18 @@
+import processing.sound.*;
+
+SoundFile bgFile;
+String bgMusic = "Sounds/galaga.mp3";
+String bgPath;
+
+SoundFile laser;
+String laserSound = "Sounds/laser.mp3";
+String laserPath;
+/*
+String shipSound = "Sounds/shipDestroy.mp3";
+String shipPath = sketchPath(shipSound);
+SoundFile shipDestroy = new SoundFile(this, shipPath);*/
+
+
 int score = 0;
 int speed = 20;
 int level = 2;
@@ -37,6 +52,15 @@ void setup () {
   imageMode(CENTER);
   bg = loadImage("Images/space.jpg");
   initHighScore();
+  
+  bgPath = sketchPath(bgMusic);
+  bgFile = new SoundFile(this, bgPath);
+  bgFile.play();
+  
+  laserPath = sketchPath(laserSound);
+  laser = new SoundFile(this, laserPath);
+
+
  
   bullets = new Bullet[0];
   ab = new alienBullet[0];
@@ -255,6 +279,7 @@ void keyPressed() {
 
 void mouseClicked() {
   if (ship.isAlive() && state ==1) {
+    laser.play();
    bullets = (Bullet[])append(bullets, new Bullet(ship.x - 12.5 ,ship.y -15));
    bullets = (Bullet[])append(bullets, new Bullet(ship.x + 12.5 ,ship.y -15));
 
