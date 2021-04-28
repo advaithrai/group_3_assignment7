@@ -2,11 +2,10 @@ class Bullet {
   
   float x, y;
   boolean alive = true;
-<<<<<<< Updated upstream
-=======
+
   boolean hit = false;
   PImage bulletSprite = loadImage("Sprites/bullet.png");
->>>>>>> Stashed changes
+
   
   Bullet(float _x, float _y){
     x = _x;

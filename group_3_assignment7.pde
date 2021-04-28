@@ -1,11 +1,23 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 =======
+=======
+
+>>>>>>> Stashed changes
 int score = 10;
 int speed = 20;
 int level = 1;
 int timer = 0;
+<<<<<<< Updated upstream
 int spawnTime = 6000;
+=======
+int timer2 = 0;
+int spawnTime = 5000;
+int spawnTime2 = 1500;
+int numSeekers = 0;
+int seekerX;
+
 PImage bg;
 
 Ship ship;
@@ -13,6 +25,9 @@ Bullet[] bullets;
 
 Alien[] aliens;
 Alien[] altAliens;
+
+Alien[] aliens2;
+
 
 
 alienBullet[] ab;
@@ -30,6 +45,8 @@ void setup () {
   
   altAliens = new Alien[0];
 
+  aliens2 = new Alien[0];
+
   
   ship = new Ship(250,400);
  
@@ -38,6 +55,10 @@ void setup () {
 void levelUp() {
   if (score >= 10 && level == 1) {
     level = 2;
+
+  } else if (score >= 30 && level == 2) {
+    level = 3;
+
   }
 }
 
@@ -66,7 +87,18 @@ void draw() {
   }
   
 
+  while (numSeekers <= 4) {
+    if ((millis() - timer2) >= spawnTime2){
+      aliens2 = (Alien[])append(aliens2, new Alien(100,-25));
+      numSeekers++;
+    }
+  }
   
+  for (Alien alien : aliens2) {
+    ship.checkHit(alien);
+    alien.display();
+    alien.move();
+  }
 
     
   for (Alien alien : aliens) {
@@ -143,6 +175,3 @@ void mouseClicked() {
   }
   
 }
-
-  
->>>>>>> Stashed changes

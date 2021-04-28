@@ -54,9 +54,16 @@ class Alien {
      if (alive){
       if (checkDist(b) <= 25){
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         b.alive = false;
         this.alive = false;
 =======
+=======
+
+        b.alive = false;
+        this.alive = false;
+
+>>>>>>> Stashed changes
         if (health <=0){
           b.alive = false;
           this.alive = false;
@@ -68,6 +75,10 @@ class Alien {
         }
       } else {
         return(0);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+
 >>>>>>> Stashed changes
       }
      }
