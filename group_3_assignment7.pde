@@ -1,8 +1,14 @@
 int score = 0;
 int speed = 20;
-int level = 1;
+int level = 2;
 int timer = 0;
-int spawnTime = 6000;
+int timer2 = 0;
+int startTime2;
+int spawnTime = 3000;
+int spawnTime2 = 1500;
+int delay2 = 5000;
+int numSeekers = 0;
+int seekerX = 0;
 int state = 0;
 PImage bg;
 boolean startButtonPressed;
@@ -19,7 +25,8 @@ Ship ship;
 Bullet[] bullets;
 
 Alien[] aliens;
-
+Seeker[] aliens2;
+Alien[] altAliens;
 
 alienBullet[] ab;
 
@@ -34,12 +41,22 @@ void setup () {
   bullets = new Bullet[0];
   ab = new alienBullet[0];
   aliens = new Alien[0];
-  aliens = (Alien[])append(aliens, new Alien(100,-25));
+  altAliens = new Alien[0];
+  aliens2 = new Seeker[0];
   ship = new Ship(250,400);
    
   }
    
+void levelUp() {
+  if (score >= 10 && level == 1) {
+    level = 2;
+    startTime2 = millis();
 
+  } else if (score >= 30 && level == 2) {
+    level = 3;
+
+  }
+}
 
 
 void draw() {
@@ -73,30 +90,65 @@ void draw() {
     break;
     
   case 1:
+    levelUp();
     text("Score: "+ score,400,20);
     text("Lives: " + ship.lives, 400,40);
     text("Level " + level, 10,20);
     
     if ((millis() - timer) >= spawnTime){
-      aliens = (Alien[])append(aliens, new Alien(100,-25));
-      timer = millis();
+      if (level == 1) {
+        aliens = (Alien[])append(aliens, new Alien(100,-25)); 
+        timer = millis();
+      } else if (level == 2){
+      
+        aliens = (Alien[])append(aliens, new Alien(100,-25));
+        altAliens = (Alien[])append(altAliens, new Alien(400,-25));
+        
+        if (millis() - startTime2 >= delay2){
+          if ((millis() - timer2) >= spawnTime2 && numSeekers <= 3){
+            aliens2 = (Seeker[])append(aliens2, new Seeker(100 + seekerX,-25));
+            seekerX += width/5;
+            numSeekers++;
+            timer2 = millis();
+          }
+        }
+        timer = millis();
+      }
     }
     
-  
-      
+    
+    
+
+    
+    for (Seeker alien : aliens2) {
+      ship.checkHit(alien);
+      alien.display();
+      alien.move();
+    }
+    
     for (Alien alien : aliens) {
       ship.checkHit(alien);
       alien.display();
       alien.move();
     }
+    
+    for (Alien alien : altAliens) {
+      ship.checkHit(alien);
+      alien.display();
+      alien.moveAlt();
+    }
   
-    
-    
-    
     for (Bullet bullet : bullets) {
       for (Alien alien : aliens){
         score += alien.checkHit(bullet);
       }
+      for (Alien alien : altAliens){
+        score += alien.checkHit(bullet);
+      }
+      for (Alien alien : aliens2){
+        score += alien.checkHit(bullet);
+      }
+      
       
       bullet.display();
       bullet.move();    
@@ -110,7 +162,7 @@ void draw() {
     }  
    */
    
-   if(score >= 10){
+   if(score >= 50){
       textSize(20);
       text("You Won! Press Enter to Play Again", 75,250);
       text("Press 'Q' to Quit", 175, 300);

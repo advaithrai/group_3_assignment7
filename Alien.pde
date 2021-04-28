@@ -25,10 +25,22 @@ class Alien {
     
     if (alive){
       //move down
-      y += 0.2;
+      y += 0.5;
     
-      x += 5 * sin(s);
-      s += PI/96;
+      x += 10 * sin(s);
+      s += PI/48;
+    }
+    
+  }
+  
+  void moveAlt(){
+    
+    if (alive){
+      //move down
+      y += 0.5;
+    
+      x -= 10 * sin(s);
+      s += PI/48;
     }
     
   }
@@ -44,11 +56,18 @@ class Alien {
   
    int checkHit(Bullet b){
      
-     if (this.alive && b.alive){
+     if (this.alive && b.alive && !b.hit){
       if (checkDist(b) <= 25){
+        println(health);
         b.alive = false;
-        this.alive = false;
-        return (1);
+        b.hit = true;
+        this.health --;
+        if (this.health <= 0) {
+          this.alive = false;
+          return (1);
+        } else {
+          return (0);
+        }
       } else {
         return(0);
       }
@@ -59,4 +78,76 @@ class Alien {
      }
    }
 
+}
+
+class Seeker extends Alien {
+  int health = 3;
+  PImage sprite = loadImage("Sprites/alien2.png");
+  boolean up = false;
+  
+  Seeker(float _x, float _y){
+    super(_x,_y);
+  }
+  
+  void move(){
+    if (alive){
+      
+      if (!up){
+        y += 5;
+        
+        if (y >= 550){
+          up = true;
+        }
+      } else {
+        y -= 5;
+        if (y <= -50){
+          up = false;
+        }
+      }
+    }
+  }
+  
+  void display(){
+    
+    if (alive){
+      if (!up){
+        pushMatrix();
+        translate(x,y);
+        image(sprite, 0, 0);
+        popMatrix();
+      } else {
+        pushMatrix();
+       
+        translate(x,y);
+        rotate(radians(180));
+        image(sprite, 0, 0);
+        popMatrix();
+      }
+      
+    }
+  }
+  
+  int checkHit(Bullet b){
+     
+     if (this.alive && b.alive && !b.hit){
+      if (checkDist(b) <= 25){
+        println(health);
+        b.alive = false;
+        b.hit = true;
+        this.health --;
+        if (this.health <= 0) {
+          this.alive = false;
+          return (3);
+        } else {
+          return (0);
+        }
+      } else {
+        return(0);
+      }
+      
+     }
+     else {
+       return(0);
+     }
+   }
 }
