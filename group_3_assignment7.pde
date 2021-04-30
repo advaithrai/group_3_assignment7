@@ -151,6 +151,7 @@ void draw() {
       ship.checkHit(alien);
       alien.display();
       alien.move();
+      alien.die();
     }
     
     for (Alien alien : aliens) {
@@ -164,6 +165,7 @@ void draw() {
       ship.checkHit(alien);
       alien.display();
       alien.moveAlt();
+      alien.die();
     }
   
     for (Bullet bullet : bullets) {
@@ -238,6 +240,7 @@ void keyPressed() {
       if (key == 'n') {
         if (soundOn) {
           bgFile.pause();
+          
           soundOn = false;
         }
         else {
@@ -294,7 +297,9 @@ void keyPressed() {
 
 void mouseClicked() {
   if (ship.isAlive() && state ==1) {
+    if (soundOn) {
     laser.play();
+    }
    bullets = (Bullet[])append(bullets, new Bullet(ship.x - 12.5 ,ship.y -15));
    bullets = (Bullet[])append(bullets, new Bullet(ship.x + 12.5 ,ship.y -15));
 
