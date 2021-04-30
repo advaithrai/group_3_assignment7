@@ -30,6 +30,7 @@ boolean startButtonPressed;
 boolean highScorePressed;
 int startX, startY, startW, startH;
 int highX, highY, highW, highH;
+Boolean soundOn = true;
 
 int[] scores = new int[5];
 int[] scores_int = new int[5];
@@ -55,10 +56,12 @@ void setup () {
   
   bgPath = sketchPath(bgMusic);
   bgFile = new SoundFile(this, bgPath);
+  bgFile.amp(.3);
   bgFile.play();
   
   laserPath = sketchPath(laserSound);
   laser = new SoundFile(this, laserPath);
+  laser.amp(.3);
 
 
  
@@ -154,6 +157,7 @@ void draw() {
       ship.checkHit(alien);
       alien.display();
       alien.move();
+      alien.die();
     }
     
     for (Alien alien : altAliens) {
@@ -231,6 +235,17 @@ void draw() {
     
 
 void keyPressed() {
+      if (key == 'n') {
+        if (soundOn) {
+          bgFile.pause();
+          soundOn = false;
+        }
+        else {
+          bgFile.play();
+          soundOn = true;
+        }
+      }
+    
      if (ship.isAlive() && state == 1) {
       if (key == 'w' && ship.y >= 0) {
         ship.y -= speed;        

@@ -1,12 +1,13 @@
 class Alien {
   
   PImage sprite = loadImage("Sprites/alien1.png");
+  PImage deadSprite = loadImage("Sprites/death.png");
   int health = 1;
   float x, y, s;
   boolean alive = true;
   boolean hit = false;
   int timer = 0;
-  int timerValue = 3000;
+  int timerValue =10;
   
   
   Alien(float _x, float _y) {
@@ -19,6 +20,15 @@ class Alien {
     if (alive){
       image(sprite, x, y);
     }
+  }
+  
+  void die() {
+      if (!this.alive && timer < timerValue) {
+    
+      image(deadSprite, x,y);
+      timer++;
+    
+      }
   }
   
   void move(){
