@@ -14,7 +14,7 @@ class Bullet {
   void move(){
     if (alive){
       
-      if (x <= 0){
+      if (y <= 0){
         this.alive = false;
       } else {
         y -= 5;
@@ -31,17 +31,31 @@ class Bullet {
 }
 
 class alienBullet extends Bullet {
-  
-  Boolean hit = false;
-  
-  alienBullet(int x, int y) {
+ 
+  PImage bullet = loadImage("Sprites/alienBullet.png");
+ 
+  alienBullet(float x, float y) {
     super(x,y);
   }
   
     void move(){
     if (alive){
+      
+      if (y >= 500) {
+        this.alive = false;
+      }
+      else {
       y += 5;
+      }
     }
   }
+  
+    void display(){
+    if (alive){
+      image(bullet, x, y);
+    }
+  }
+
+
 
 }

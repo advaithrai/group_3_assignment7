@@ -8,6 +8,8 @@ class Alien {
   boolean hit = false;
   int timer = 0;
   int timerValue =10;
+  int bulletTimerValue = 2000;
+  int bulletTimer = 0;
   
   
   Alien(float _x, float _y) {
@@ -41,6 +43,12 @@ class Alien {
       s += PI/48;
     }
     
+    if (((millis() - bulletTimer) >= bulletTimerValue) && this.alive) {
+        bulletTimer = millis();
+        ab = (alienBullet[])append(ab, new alienBullet(this.x - 12.5 ,this.y + 15));
+        ab = (alienBullet[])append(ab, new alienBullet(this.x + 12.5 ,this.y + 15));
+    }
+    
   }
   
   void moveAlt(){
@@ -53,6 +61,12 @@ class Alien {
       s += PI/48;
     }
     
+    if (((millis() - bulletTimer) >= bulletTimerValue) && this.alive) {
+        bulletTimer = millis();
+        ab = (alienBullet[])append(ab, new alienBullet(this.x - 12.5 ,this.y + 15));
+        ab = (alienBullet[])append(ab, new alienBullet(this.x + 12.5 ,this.y + 15));
+    }
+ 
   }
   
   float checkDist(Bullet b) {

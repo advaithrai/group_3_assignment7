@@ -7,10 +7,7 @@ String bgPath;
 SoundFile laser;
 String laserSound = "Sounds/laser.mp3";
 String laserPath;
-/*
-String shipSound = "Sounds/shipDestroy.mp3";
-String shipPath = sketchPath(shipSound);
-SoundFile shipDestroy = new SoundFile(this, shipPath);*/
+
 
 
 int score = 0;
@@ -184,13 +181,13 @@ void draw() {
       bullet.move();    
   
     }
-  /*  
+    
     for (alienBullet a : ab) {
       a.display();
       a.move();
       ship.checkHitBullet(a);
     }  
-   */
+   
    
    if(score >= 50){
       textSize(20);
