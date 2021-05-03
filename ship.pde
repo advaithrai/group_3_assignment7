@@ -31,6 +31,29 @@ class Ship {
     
   }
 
+  void newMove() {
+      
+   
+    int newX = abs(mouseX - ship.x);
+    int newY = abs(mouseY - ship.y);
+   
+    if (ship.x > mouseX) {
+      ship.x -= newX;
+    }
+    else if (ship.x < mouseX) {
+      ship.x += newX;
+    }
+    
+    if (ship.y < mouseY) {
+      ship.y += newY;
+    }
+    else if (ship.y > mouseY) {
+      ship.y -= newY;
+    }
+     
+   
+
+  }
   
   Boolean isAlive() {
      if (this.lives <= 0) {

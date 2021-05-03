@@ -12,7 +12,7 @@ String laserPath;
 
 int score = 0;
 int speed = 20;
-int level = 2;
+int level = 1;
 int timer = 0;
 int timer2 = 0;
 int startTime2;
@@ -141,9 +141,6 @@ void draw() {
     }
     
     
-    
-
-    
     for (Seeker alien : aliens2) {
       ship.checkHit(alien);
       alien.display();
@@ -188,7 +185,6 @@ void draw() {
       ship.checkHitBullet(a);
     }  
    
-   
    if(score >= 50){
       textSize(20);
       text("You Won! Press Enter to Play Again", 75,250);
@@ -201,7 +197,8 @@ void draw() {
     }
     
     if (ship.isAlive()) {   
-      ship.display(); 
+      ship.display();
+      ship.newMove();
           
     }
       
@@ -302,12 +299,12 @@ void mouseClicked() {
 
   }
   
-  if (mouseX > startX && mouseX < startX+startW && mouseY > startY && mouseY < startY+startH){
+  if (mouseX > startX && mouseX < startX+startW && mouseY > startY && mouseY < startY+startH && state == 0){
     startButtonPressed = true;
     state = 1;
   }
   
-  if (mouseX > highX && mouseX < highX+highW && mouseY > highY && mouseY < highY+highH){
+  if (mouseX > highX && mouseX < highX+highW && mouseY > highY && mouseY < highY+highH && state == 0){
     highScorePressed = true;
     state = 2;
   }
