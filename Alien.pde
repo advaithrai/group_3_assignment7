@@ -155,13 +155,64 @@ class Seeker extends Alien {
      
      if (this.alive && b.alive && !b.hit){
       if (checkDist(b) <= 25){
-        println(health);
+        
         b.alive = false;
         b.hit = true;
         this.health --;
         if (this.health <= 0) {
           this.alive = false;
           return (3);
+        } else {
+          return (0);
+        }
+      } else {
+        return(0);
+      }
+      
+     }
+     else {
+       return(0);
+     }
+   }
+}
+
+class Boss extends Alien {
+  int health = 50;
+  PImage sprite = loadImage("Sprites/alien3.png");
+  
+  
+  Boss(float _x, float _y){
+    super(_x,_y);
+  }
+  
+  void move(){
+    if (alive){
+      x += 2 * sin(s);
+      s += PI/192;
+    }
+  }
+  
+  void display(){
+    
+    if (alive){     
+      pushMatrix();
+      translate(x,y);
+      image(sprite, 0, 0);
+      popMatrix();
+    }
+  }
+  
+  int checkHit(Bullet b){
+     
+     if (this.alive && b.alive && !b.hit){
+      if (checkDist(b) <= 25){
+        println(health);
+        b.alive = false;
+        b.hit = true;
+        this.health --;
+        if (this.health <= 0) {
+          this.alive = false;
+          return (50);
         } else {
           return (0);
         }

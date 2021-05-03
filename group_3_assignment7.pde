@@ -21,6 +21,7 @@ int spawnTime2 = 1500;
 int delay2 = 5000;
 int numSeekers = 0;
 int seekerX = 0;
+boolean bossExist = false;
 int state = 0;
 PImage bg;
 boolean startButtonPressed;
@@ -41,7 +42,7 @@ Bullet[] bullets;
 Alien[] aliens;
 Seeker[] aliens2;
 Alien[] altAliens;
-
+Boss boss;
 alienBullet[] ab;
 
 void setup () {
@@ -68,6 +69,7 @@ void setup () {
   aliens = new Alien[0];
   altAliens = new Alien[0];
   aliens2 = new Seeker[0];
+  
   ship = new Ship(250,400);
    
   }
@@ -116,9 +118,7 @@ void draw() {
     
   case 1:
     levelUp();
-    text("Score: "+ score,400,20);
-    text("Lives: " + ship.lives, 400,40);
-    text("Level " + level, 10,20);
+    
     
     if ((millis() - timer) >= spawnTime){
       if (level == 1) {
@@ -139,6 +139,12 @@ void draw() {
         }
         timer = millis();
       }
+    }
+
+    if (level == 3 && !bossExist) {
+      
+      boss = new Boss(125, 0);
+      bossExist = true;
     }
     
     
@@ -174,6 +180,7 @@ void draw() {
         score += alien.checkHit(bullet);
       }
       
+      score += boss.checkHit(bullet);
       
       bullet.display();
       bullet.move();    
@@ -186,7 +193,14 @@ void draw() {
       ship.checkHitBullet(a);
     }  
    
-   if(score >= 50){
+   boss.display();
+   boss.move();
+   
+   text("Score: "+ score,400,20);
+   text("Lives: " + ship.lives, 400,40);
+   text("Level " + level, 10,20);
+    
+   if(score >= 80){
       textSize(20);
       text("You Won! Press Enter to Play Again", 75,250);
       text("Press 'Q' to Quit", 175, 300);
