@@ -1,7 +1,7 @@
 class Alien {
   
   PImage sprite = loadImage("Sprites/alien1.png");
-  PImage deadSprite = loadImage("Sprites/death-1.png");
+  PImage deadSprite = loadImage("Sprites/death-2.png");
   int health = 1;
   float x, y, s;
   boolean alive = true;

@@ -28,6 +28,7 @@ boolean highScorePressed;
 int startX, startY, startW, startH;
 int highX, highY, highW, highH;
 Boolean soundOn = true;
+Boolean keysOn = true;
 
 int[] scores = new int[5];
 int[] scores_int = new int[5];
@@ -203,6 +204,7 @@ void draw() {
     }
       
     else {
+      ship.die();
       textSize(20);
       text("Game Over. Press Enter to Play Again", 75,250);
       text("Press 'Q' to Quit", 175, 300);
@@ -242,8 +244,17 @@ void keyPressed() {
           soundOn = true;
         }
       }
+      
+      if (key == 'k') {
+        if (keysOn) {
+          keysOn = false;
+        }
+        else {
+          keysOn = true;
+        }
+      }
     
-     if (ship.isAlive() && state == 1) {
+     if (ship.isAlive() && state == 1 && keysOn) {
       if (key == 'w' && ship.y >= 0) {
         ship.y -= speed;        
       }

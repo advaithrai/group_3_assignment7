@@ -1,10 +1,13 @@
 class Ship {
   
   PImage shipSprite = loadImage("Sprites/ship.png");
+  PImage deadSprite = loadImage("Sprites/death-2.png");
   int x;
   int y;
   int lives = 3;
   Boolean alive = true;
+  int timer = 0;
+  int timerValue = 30;
   
   Ship(int x, int y) {
     this.x = x;
@@ -30,10 +33,19 @@ class Ship {
     return dist;
     
   }
+  
+  void die() {
+      if (!this.alive && timer < timerValue) {
+    
+      image(deadSprite, x,y);
+      timer++;
+      }
+
+  }
 
   void newMove() {
       
-   
+   if (!keysOn) {
     int newX = abs(mouseX - ship.x);
     int newY = abs(mouseY - ship.y);
    
@@ -50,7 +62,7 @@ class Ship {
     else if (ship.y > mouseY) {
       ship.y -= newY;
     }
-     
+   }
    
 
   }
@@ -58,7 +70,7 @@ class Ship {
   Boolean isAlive() {
      if (this.lives <= 0) {
           this.alive = false;
-//          println("dead");
+
           return false;
         }
     else {
