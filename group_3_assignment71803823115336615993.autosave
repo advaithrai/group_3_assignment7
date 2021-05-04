@@ -21,7 +21,6 @@ int spawnTime2 = 1500;
 int delay2 = 5000;
 int numSeekers = 0;
 int seekerX = 0;
-boolean bossExist = false;
 int state = 0;
 PImage bg;
 boolean startButtonPressed;
@@ -42,7 +41,7 @@ Bullet[] bullets;
 Alien[] aliens;
 Seeker[] aliens2;
 Alien[] altAliens;
-Boss boss;
+
 alienBullet[] ab;
 
 void setup () {
@@ -69,7 +68,6 @@ void setup () {
   aliens = new Alien[0];
   altAliens = new Alien[0];
   aliens2 = new Seeker[0];
-  
   ship = new Ship(250,400);
    
   }
@@ -90,9 +88,8 @@ void draw() {
   
   image(bg,250,250);
   textSize(14);
-  
   if (keyPressed) {
-    WASD();
+  ifkeyPressed();
   }
   
   switch(state){
@@ -123,7 +120,9 @@ void draw() {
     
   case 1:
     levelUp();
-    
+    text("Score: "+ score,400,20);
+    text("Lives: " + ship.lives, 400,40);
+    text("Level " + level, 10,20);
     
     if ((millis() - timer) >= spawnTime){
       if (level == 1) {
@@ -144,18 +143,6 @@ void draw() {
         }
         timer = millis();
       }
-    }
-
-    if (level == 3) {
-      
-      if (!bossExist) {
-        boss = new Boss(125, 0);
-        bossExist = true;
-      }
-      
-      boss.display();
-      boss.move();
-   
     }
     
     
@@ -191,9 +178,6 @@ void draw() {
         score += alien.checkHit(bullet);
       }
       
-      if (level == 3){
-        score += boss.checkHit(bullet);
-      }
       
       bullet.display();
       bullet.move();    
@@ -206,13 +190,7 @@ void draw() {
       ship.checkHitBullet(a);
     }  
    
-   
-   
-   text("Score: "+ score,400,20);
-   text("Lives: " + ship.lives, 400,40);
-   text("Level " + level, 10,20);
-    
-   if(score >= 80){
+   if(score >= 50){
       textSize(20);
       text("You Won! Press Enter to Play Again", 75,250);
       text("Press 'Q' to Quit", 175, 300);
@@ -256,29 +234,7 @@ void draw() {
   }
     
 }
-
-void WASD() {
-       if (ship.isAlive() && state == 1 && keysOn) {
-      if (key == 'w' && ship.y >= 0) {
-        ship.y -= speed;        
-      }
-      if (key == 's' && ship.y <= 450) {
-        ship.y += speed;
-      }
-      if (key == 'd' && ship.x <= 450) {
-        ship.x += speed;
-      }
-      if (key == 'a' && ship.x >= 5) {
-        ship.x -= speed;
-      }
-      if (key == 'q'){
-        addScore(score);
-        state = 0;
-      }
-     
-     }
-
-}
+    
 
 void keyPressed() {
       if (key == 'n') {
@@ -302,6 +258,25 @@ void keyPressed() {
         }
       }
     
+     if (ship.isAlive() && state == 1 && keysOn) {
+      if (key == 'w' && ship.y >= 0) {
+        ship.y -= speed;        
+      }
+      if (key == 's' && ship.y <= 450) {
+        ship.y += speed;
+      }
+      if (key == 'd' && ship.x <= 450) {
+        ship.x += speed;
+      }
+      if (key == 'a' && ship.x >= 5) {
+        ship.x -= speed;
+      }
+      if (key == 'q'){
+        addScore(score);
+        state = 0;
+      }
+     
+     }
      
     
      if(ship.isAlive() == false && state == 1){
@@ -327,7 +302,10 @@ void keyPressed() {
         score = 0;
      }
 }
-  
+
+void WASD() {
+
+}
 
 void mouseClicked() {
   if (ship.isAlive() && state ==1) {
@@ -336,6 +314,7 @@ void mouseClicked() {
     }
    bullets = (Bullet[])append(bullets, new Bullet(ship.x - 12.5 ,ship.y -15));
    bullets = (Bullet[])append(bullets, new Bullet(ship.x + 12.5 ,ship.y -15));
+   println("click");
 
   }
   
