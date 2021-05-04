@@ -64,8 +64,11 @@ class alienBullet extends Bullet {
 class bossBullet extends Bullet {
  
   PImage bullet = loadImage("Sprites/bossBullet.png");
-  float vX = 0;
-  float vY = 0;
+  PImage arc = loadImage("Sprites/bossBulletArc.png");
+  
+  float s = 0;
+  float vX = (ship.x - this.x)/100;
+  
   
   bossBullet(float x, float y) {
     super(x,y);
@@ -79,15 +82,29 @@ class bossBullet extends Bullet {
         this.hit = true;
       }
       else {
-      y += vY;
-      x += vX;
+        y += 5;
+        x += vX;     
       }
     }
   }
   
     void display(){
     if (alive){
-      image(bullet, x, y);
+      pushMatrix();
+        translate(x,y);
+        rotate(s);
+        image(bullet, 0, 0);
+        image(arc,0,25);
+        pushMatrix();
+          rotate(radians(90));
+          image(arc,0,25);
+          rotate(radians(90));
+          image(arc,0,25);
+          rotate(radians(90));
+          image(arc,0,25);
+        popMatrix();
+      popMatrix();
+        s += TWO_PI/100;
     }
   }
 

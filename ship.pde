@@ -115,7 +115,7 @@ class Ship {
    void checkHitBullet(bossBullet b){
      
      if (this.alive){
-      if (checkDistBullet(b) <= 25 && !b.hit){
+      if (checkDistBullet(b) <= 50 && !b.hit){
         b.alive = false;
         b.hit = true;
         this.lives -= 1;
