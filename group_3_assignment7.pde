@@ -12,7 +12,7 @@ String laserPath;
 
 int score = 0;
 int speed = 20;
-int level = 1;
+int level = 3;
 int timer = 0;
 int timer2 = 0;
 int startTime2;
@@ -44,6 +44,7 @@ Seeker[] aliens2;
 Alien[] altAliens;
 Boss boss;
 alienBullet[] ab;
+bossBullet[] bb;
 
 void setup () {
   
@@ -66,6 +67,7 @@ void setup () {
  
   bullets = new Bullet[0];
   ab = new alienBullet[0];
+  bb = new bossBullet[0];
   aliens = new Alien[0];
   altAliens = new Alien[0];
   aliens2 = new Seeker[0];
@@ -199,7 +201,13 @@ void draw() {
       a.display();
       a.move();
       ship.checkHitBullet(a);
-    }  
+    }
+    
+    for (bossBullet b : bb) {
+      b.display();
+      b.move();
+      ship.checkHitBullet(b);
+    }
    
    
    

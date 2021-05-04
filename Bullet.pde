@@ -60,3 +60,37 @@ class alienBullet extends Bullet {
 
 
 }
+
+class bossBullet extends Bullet {
+ 
+  PImage bullet = loadImage("Sprites/bossBullet.png");
+  float vX = 0;
+  float vY = 0;
+  
+  bossBullet(float x, float y) {
+    super(x,y);
+  }
+  
+    void move(){
+    if (alive){
+      
+      if (y >= 500) {
+        this.alive = false;
+        this.hit = true;
+      }
+      else {
+      y += vY;
+      x += vX;
+      }
+    }
+  }
+  
+    void display(){
+    if (alive){
+      image(bullet, x, y);
+    }
+  }
+
+
+
+}
