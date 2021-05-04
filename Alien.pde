@@ -189,6 +189,11 @@ class Boss extends Alien {
     if (alive){
       x += 2 * sin(s);
       s += PI/192;
+      
+      if (((millis() - bulletTimer) >= bulletTimerValue) && this.alive) {
+        bulletTimer = millis();
+        bb = (bossBullet[])append(bb, new bossBullet(this.x ,this.y + 55));
+      }
     }
   }
   

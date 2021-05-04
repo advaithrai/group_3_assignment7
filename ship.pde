@@ -34,6 +34,14 @@ class Ship {
     
   }
   
+  float checkDistBullet(bossBullet b) {
+    
+    float dist = sqrt(sq(this.x - b.x) + sq(this.y - b.y));
+    
+    return dist;
+    
+  }
+  
   void die() {
       if (!this.alive && timer < timerValue) {
     
@@ -93,6 +101,18 @@ class Ship {
    }
    
    void checkHitBullet(alienBullet b){
+     
+     if (this.alive){
+      if (checkDistBullet(b) <= 25 && !b.hit){
+        b.alive = false;
+        b.hit = true;
+        this.lives -= 1;
+
+      }
+     }
+   }
+   
+   void checkHitBullet(bossBullet b){
      
      if (this.alive){
       if (checkDistBullet(b) <= 25 && !b.hit){
