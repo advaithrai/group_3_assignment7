@@ -43,6 +43,7 @@ class alienBullet extends Bullet {
       
       if (y >= 500) {
         this.alive = false;
+        this.hit = true;
       }
       else {
       y += 5;

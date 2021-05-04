@@ -141,10 +141,16 @@ void draw() {
       }
     }
 
-    if (level == 3 && !bossExist) {
+    if (level == 3) {
       
-      boss = new Boss(125, 0);
-      bossExist = true;
+      if (!bossExist) {
+        boss = new Boss(125, 0);
+        bossExist = true;
+      }
+      
+      boss.display();
+      boss.move();
+   
     }
     
     
@@ -180,7 +186,9 @@ void draw() {
         score += alien.checkHit(bullet);
       }
       
-      score += boss.checkHit(bullet);
+      if (level == 3){
+        score += boss.checkHit(bullet);
+      }
       
       bullet.display();
       bullet.move();    
@@ -193,8 +201,7 @@ void draw() {
       ship.checkHitBullet(a);
     }  
    
-   boss.display();
-   boss.move();
+   
    
    text("Score: "+ score,400,20);
    text("Lives: " + ship.lives, 400,40);
