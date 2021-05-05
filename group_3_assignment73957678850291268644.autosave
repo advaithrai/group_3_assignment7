@@ -12,7 +12,7 @@ String laserPath;
 
 int score = 0;
 int speed = 10;
-int level = 3;
+int level = 1;
 int timer = 0;
 int timer2 = 0;
 int startTime2;
@@ -338,23 +338,27 @@ void keyPressed() {
 
 void mouseMoved() {
   ship.newMove();
+  
 }
 
 void mouseDragged() {
   ship.newMove();
-  }
-
-void mousePressed() {
-  if (ship.isAlive() && state ==1) {
-    if (soundOn) {
-    laser.play();
-    }
-   bullets = (Bullet[])append(bullets, new Bullet(ship.x - 12.5 ,ship.y -15));
-   bullets = (Bullet[])append(bullets, new Bullet(ship.x + 12.5 ,ship.y -15));
-
-  }
 
 }
+
+void mousePressed() {
+
+   if (ship.isAlive() && state ==1) {
+    if (soundOn) {
+      laser.play();
+     }
+    
+     bullets = (Bullet[])append(bullets, new Bullet(ship.x - 12.5 ,ship.y -15));
+     bullets = (Bullet[])append(bullets, new Bullet(ship.x + 12.5 ,ship.y -15));
+
+  }
+
+}  
 
 void mouseClicked() {
   
