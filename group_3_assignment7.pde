@@ -12,7 +12,7 @@ String laserPath;
 
 int score = 0;
 int speed = 10;
-int level = 2;
+int level = 1;
 int timer = 0;
 int timer2 = 0;
 int startTime2;

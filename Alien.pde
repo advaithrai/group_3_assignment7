@@ -177,7 +177,7 @@ class Seeker extends Alien {
 }
 
 class Boss extends Alien {
-  int health = 100;
+  int health = 75;
   int bulletTimerValue = 1000;
   PImage sprite = loadImage("Sprites/alien3.png");
   
