@@ -2,12 +2,12 @@ class Alien {
   
   PImage sprite = loadImage("Sprites/alien1.png");
   PImage deadSprite = loadImage("Sprites/death-2.png");
-  int health = 1;
+  int health = 3;
   float x, y, s;
   boolean alive = true;
   boolean hit = false;
   int timer = 0;
-  int timerValue =10;
+  int timerValue = 10;
   int bulletTimerValue = 2000;
   int bulletTimer = 0;
   
@@ -105,7 +105,7 @@ class Alien {
 }
 
 class Seeker extends Alien {
-  int health = 3;
+  int health = 10;
   PImage sprite = loadImage("Sprites/alien2.png");
   boolean up = false;
   
@@ -177,7 +177,7 @@ class Seeker extends Alien {
 }
 
 class Boss extends Alien {
-  int health = 50;
+  int health = 100;
   int bulletTimerValue = 1000;
   PImage sprite = loadImage("Sprites/alien3.png");
   
@@ -211,7 +211,7 @@ class Boss extends Alien {
   int checkHit(Bullet b){
      
      if (this.alive && b.alive && !b.hit){
-      if (checkDist(b) <= 25){
+      if (checkDist(b) <= 50){
         println(health);
         b.alive = false;
         b.hit = true;

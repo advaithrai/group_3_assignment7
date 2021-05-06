@@ -12,7 +12,7 @@ String laserPath;
 
 int score = 0;
 int speed = 10;
-int level = 3;
+int level = 2;
 int timer = 0;
 int timer2 = 0;
 int startTime2;
@@ -83,6 +83,8 @@ void levelUp() {
 
   } else if (score >= 30 && level == 2) {
     level = 3;
+    numSeekers = 0;
+    seekerX = 0;
 
   }
 }
@@ -131,7 +133,7 @@ void draw() {
       if (level == 1) {
         aliens = (Alien[])append(aliens, new Alien(100,-25)); 
         timer = millis();
-      } else if (level == 2){
+      } else if (level == 2 || level == 3){
       
         aliens = (Alien[])append(aliens, new Alien(100,-25));
         altAliens = (Alien[])append(altAliens, new Alien(400,-25));
@@ -149,7 +151,7 @@ void draw() {
     }
 
     if (level == 3) {
-      
+        
       if (!bossExist) {
         boss = new Boss(125, 0);
         bossExist = true;
@@ -157,6 +159,7 @@ void draw() {
       
       boss.display();
       boss.move();
+      
    
     }
     
