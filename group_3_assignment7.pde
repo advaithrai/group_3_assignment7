@@ -8,7 +8,7 @@ SoundFile laser;
 String laserSound = "Sounds/laser.mp3";
 String laserPath;
 
-
+PFont galaga_font;
 
 int score = 0;
 int speed = 10;
@@ -26,8 +26,12 @@ int state = 0;
 PImage bg;
 boolean startButtonPressed;
 boolean highScorePressed;
+boolean resumePressed;
+boolean restartPressed;
 int startX, startY, startW, startH;
 int highX, highY, highW, highH;
+int resumeX, resumeY, resumeW, resumeH;
+int restartX, restartY, restartW, restartH;
 Boolean soundOn = true;
 Boolean keysOn = true;
 
@@ -48,6 +52,9 @@ bossBullet[] bb;
 
 void setup () {
   
+  
+  galaga_font = createFont("Emulogic", 32);
+  textFont(galaga_font);
   frameRate(60);
   size(500,500);
   imageMode(CENTER);
@@ -101,31 +108,34 @@ void draw() {
   
   switch(state){
   case 0:
-    textSize(35);
-    text("Main Menu",154, 150);
+    textSize(36);
+    fill(25, 255, 29);
+    text("Main Menu", 90, 150);
     startW = 200;
     startH = 80;
     startX = (width - startW) / 2;
     startY = 200;
     
-    highW = 200;
+    highW = 230;
     highH = 80;
     highX = (width - highW)/2;
     highY = 310;
     
-    textSize(20);
-    fill(150);  
+    textSize(18);
+    stroke(25, 255, 29);
+    noFill();
     
-    rect(startX, startY, startW, startH, 15);
-    rect(highX, highY, highW, highH, 15);
+    rect(startX, startY, startW, startH, 25);
+    rect(highX, highY, highW, highH, 25);
     
     fill(255);
-    text("Start Game",startX+45, startY+50);
-    text("View High Scores", highX+18, highY+50);
+    text("Start Game",startX + 10, startY + 50);
+    text("High Scores", highX + 15, highY + 50);
     
     break;
     
   case 1:
+  
     levelUp();
     
     
@@ -218,15 +228,13 @@ void draw() {
     }
    
    
-   
-   text("Score: "+ score,400,20);
-   text("Lives: " + ship.lives, 400,40);
+   textSize(12);
+   text("Score: "+ score,375,20);
+   text("Lives: " + ship.lives, 375,40);
    text("Level " + level, 10,20);
     
    if(score >= 80){
-      textSize(20);
-      text("You Won! Press Enter to Play Again", 75,250);
-      text("Press 'Q' to Quit", 175, 300);
+      state = 5;
       
       ship.alive = false;
       for (Alien alien : aliens) {
@@ -242,28 +250,154 @@ void draw() {
       
     else {
       ship.die();
-      textSize(20);
-      text("Game Over. Press Enter to Play Again", 75,250);
-      text("Press 'Q' to Quit", 175, 300);
+      state = 4;
+    
     }
     
     break;
     
   case 2:
     initHighScore();
-    textSize(25);
-    text("High Scores", width/2 - 68, 100);
-    textSize(15);
-    text("Press 'Q' to return to main menu", width/2 - 120, 450);
+    fill(255);
+    textSize(24);
+    text("High Scores", 125 , 100);
+    textSize(12);
+    text("Press 'Q' to return to main menu", 50, 450);
     for(int i = 0; i < scores.length; i++){
       textSize(20);
       textAlign(CENTER);
       if(scores[i] != 0){
-        text(scores[i], width/2, 200+30*i);
+        
+        text(i+1 + "." + scores[i], width/2, 200+30*i);
       }
     }
     textAlign(LEFT);
+    break;
+   
+   case 3:
+     bg = loadImage("Images/space.jpg");
+     image(bg,250,250);
+     textSize(12);
+     text("Score: "+ score,375,20);
+     text("Lives: " + ship.lives, 375,40);
+     text("Level " + level, 10,20);
+     textSize(24);
+     fill(255);
+     text("Paused", 175, 175);
+     
+     resumeW = 200;
+     resumeH = 80;
+     resumeX = (width - resumeW) / 2;
+     resumeY = 200;
     
+     restartW = 210;
+     restartH = 80;
+     restartX = (width - restartW)/2;
+     restartY = 310;
+    
+     textSize(18);  
+      
+     stroke(25, 255, 29);
+     noFill();
+     rect(resumeX, resumeY, resumeW, resumeH, 25);
+     rect(restartX, restartY, restartW, restartH, 25);
+    
+     fill(255);
+     text("Resume",resumeX + 45, resumeY + 50);
+     text("Start Over", restartX + 15, restartY + 50);
+    
+     break;
+     
+    case 4:
+      
+      bg = loadImage("Images/space.jpg");
+      bullets = new Bullet[0];
+      ab = new alienBullet[0];
+      bb = new bossBullet[0];
+      aliens = new Alien[0];
+      altAliens = new Alien[0];
+      aliens2 = new Seeker[0];
+      
+      aliens = (Alien[])append(aliens, new Alien(100,-25));
+      
+      
+      image(bg,250,250);
+      textSize(12);
+      text("Score: "+ score,375,20);
+      text("Lives: " + ship.lives, 375,40);
+      text("Level " + level, 10,20);
+      textSize(24);
+      fill(255);
+      
+      text("Game Over", 140, 175);
+     
+      resumeW = 200;
+      resumeH = 80;
+      resumeX = (width - resumeW) / 2;
+      resumeY = 200;
+    
+      restartW = 210;
+      restartH = 80;
+      restartX = (width - restartW)/2;
+      restartY = 310;
+    
+      textSize(18);  
+      
+      stroke(25, 255, 29);
+      noFill();
+      rect(resumeX, resumeY, resumeW, resumeH, 25);
+      rect(restartX, restartY, restartW, restartH, 25);
+    
+      fill(255);
+      text("Main Menu",resumeX + 20, resumeY + 50);
+      text("Start Over", restartX + 15, restartY + 50);
+       
+      break;
+      
+    case 5:
+      bg = loadImage("Images/space.jpg");
+      bullets = new Bullet[0];
+      ab = new alienBullet[0];
+      bb = new bossBullet[0];
+      aliens = new Alien[0];
+      altAliens = new Alien[0];
+      aliens2 = new Seeker[0];
+        
+      aliens = (Alien[])append(aliens, new Alien(100,-25));
+        
+        
+      image(bg,250,250);
+      textSize(12);
+      text("Score: "+ score,375,20);
+      text("Lives: " + ship.lives, 375,40);
+      text("Level " + level, 10,20);
+      textSize(24);
+      fill(255);
+        
+      text("You Won!", 150, 175);
+       
+      resumeW = 200;
+      resumeH = 80;
+      resumeX = (width - resumeW) / 2;
+      resumeY = 200;
+      
+      restartW = 210;
+      restartH = 80;
+      restartX = (width - restartW)/2;
+      restartY = 310;
+      
+      textSize(18);  
+        
+      stroke(25, 255, 29);
+      noFill();
+      rect(resumeX, resumeY, resumeW, resumeH, 25);
+      rect(restartX, restartY, restartW, restartH, 25);
+      
+      fill(255);
+      text("Main Menu",resumeX + 20, resumeY + 50);
+      text("Start Over", restartX + 15, restartY + 50);
+         
+      break;
   }
     
 }
@@ -328,15 +462,33 @@ void keyPressed() {
        }
      }
      
-     if (key == ENTER){
+     if (keyPressed && key == ' '){
+       if(state == 1){
+         state = 3;
+       }
+       else if (state == 3){
+         state = 1;
+       }
+     
+     }
+     
+     if (state == 3){
+       if (key == ENTER || key == RETURN){
+        state = 1;
         bg = loadImage("Images/space.jpg");
         bullets = new Bullet[0];
+        ab = new alienBullet[0];
+        bb = new bossBullet[0];
         aliens = new Alien[0];
+        altAliens = new Alien[0];
+        aliens2 = new Seeker[0];
         aliens = (Alien[])append(aliens, new Alien(100,-25));
         ship = new Ship(250,400);
         addScore(score);
         score = 0;
+       }
      }
+     
 }
 
 void mouseMoved() {
@@ -364,6 +516,19 @@ void mouseClicked() {
   if (mouseX > startX && mouseX < startX+startW && mouseY > startY && mouseY < startY+startH && state == 0){
     startButtonPressed = true;
     state = 1;
+    level = 1;
+    bg = loadImage("Images/space.jpg");
+    bullets = new Bullet[0];
+    ab = new alienBullet[0];
+    bb = new bossBullet[0];
+    aliens = new Alien[0];
+    altAliens = new Alien[0];
+    aliens2 = new Seeker[0];
+    aliens = (Alien[])append(aliens, new Alien(100,-25));
+    ship = new Ship(250,400);
+    addScore(score);
+    score = 0;
+    
   }
   
   if (mouseX > highX && mouseX < highX+highW && mouseY > highY && mouseY < highY+highH && state == 0){
@@ -371,6 +536,30 @@ void mouseClicked() {
     state = 2;
   }
   
+  if (mouseX > resumeX && mouseX < resumeX+resumeW && mouseY > resumeY && mouseY < resumeY+resumeH){
+    if (state == 3){
+      state = 1; 
+    }else if (state == 4 || state == 5){
+      state = 0;
+    }
+  }
+  
+  if (mouseX > restartX && mouseX < restartX+restartW && mouseY > restartY && mouseY < restartY+restartH && (state == 3 || state == 4 || state == 5)){
+    restartPressed = true;
+    state = 1;
+    bg = loadImage("Images/space.jpg");
+    bullets = new Bullet[0];
+    ab = new alienBullet[0];
+    bb = new bossBullet[0];
+    aliens = new Alien[0];
+    altAliens = new Alien[0];
+    aliens2 = new Seeker[0];
+    aliens = (Alien[])append(aliens, new Alien(100,-25));
+    ship = new Ship(250,400);
+    addScore(score);
+    score = 0;
+    
+  }
   
 }
 
@@ -391,10 +580,7 @@ void initHighScore(){
     scores = sort(scores_int);
     scores = reverse(scores);
     
-    
-    
-  }else{
-    println("New Score initialized - first run\n");
+ 
   }
 }
 
